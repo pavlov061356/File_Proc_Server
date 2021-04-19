@@ -6,6 +6,8 @@
 #include "QtWebSockets/qwebsocket.h"
 #include <QObject>
 #include <iostream>
+#include <QtCore/QCoreApplication>
+#include <QThread>
 
 class WebSocketServer;
 
@@ -33,6 +35,9 @@ private:
     QWebSocket *aSocket;
     QString token;
     QString filename;
+    QString hash;
+    QString funHash; // хэш получаемый из хэш функции
+    bool disconnect = false;
     int i = 0;
 };
 

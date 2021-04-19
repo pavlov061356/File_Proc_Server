@@ -54,6 +54,11 @@ void WebSocketServer::ProcessTextMessage(const QString& message)
         i++;
     }
 
+    if(list.at(0) == "hash"){
+        hash = list.at(1);
+        qDebug() <<"hash :" << hash;
+    }
+
     if(list.at(0) == "token"){
         token = list.at(1);
         qDebug() <<"token :" << token;
@@ -75,10 +80,27 @@ void WebSocketServer::RecieveFile(const QByteArray& message){
     file.open(QFile::WriteOnly);
     file.write(message);
     file.close();
+    //тут должна вызываться хэш функция, и Должен получаться хэш полученного файла, после чего идёт проверка на идентичность хэшей
+    // пока примем хэш за "hash"
+    funHash = "hash";
+    if (funHash == hash){
+        clients.at(clients.size() - 1)->sendTextMessage("Transmission OK!");
+        //qDebug() << j;
+        qDebug() << "Transmission OK!";
+        clients.clear();
+        disconnect = true;
+    }
+    else {
+        clients.at(clients.size() - 1)->sendTextMessage("Transmission failed!");
+        i = 0;
+    }
 }
 
 void WebSocketServer::SocketDisconnected()
 {
     qInfo() << "WebSocketServer::SocketDisconnected";
+    if (disconnect == true){
+        QCoreApplication::exit(0);
+    }
 
 }

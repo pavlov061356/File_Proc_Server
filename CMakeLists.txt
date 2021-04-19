@@ -8,7 +8,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(QT_VERSION 5)
-set(REQUIRED_LIBS Core WebSockets)
+set(REQUIRED_LIBS Core WebSockets )
 set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::WebSockets)
 
 add_executable(${PROJECT_NAME} main.cpp websocketserver.cpp websocketserver.h)
