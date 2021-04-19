@@ -8,10 +8,10 @@ static QString getIdentifier(QWebSocket *peer)
                                        QString::number(peer->peerPort()));
 }
 
-WebSocketServer::WebSocketServer(QObject *parent):
-    QObject(parent),
+WebSocketServer::WebSocketServer(QString targetdir):
     Web_socket_server(new QWebSocketServer(QStringLiteral("WebSocketServer"), QWebSocketServer::NonSecureMode))
 {
+    targetDir = targetdir;
 
     qDebug()<<"Initialising listen";
     if(Web_socket_server->listen(QHostAddress("0.0.0.0"),40901)){
@@ -65,8 +65,9 @@ void WebSocketServer::ProcessTextMessage(const QString& message)
     }
 
     if(list.at(0) == "filename"){
-        filename = list.at(1);
+        filename = targetDir + list.at(1);
         //filename = "../get.png";
+
         qDebug() << filename;
     }
     //filename = "../get.txt";

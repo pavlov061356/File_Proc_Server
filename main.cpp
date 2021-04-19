@@ -16,7 +16,8 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     //qDebug()<< "io";
-    WebSocketServer server;
+    QString targetDir = argv[1];
+    WebSocketServer server(targetDir);
     return a.exec();
 
 }

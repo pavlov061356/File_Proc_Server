@@ -17,7 +17,7 @@ class WebSocketServer: public QObject{
     Q_OBJECT
 
 public:
-    explicit WebSocketServer(QObject *parent = nullptr);
+    explicit WebSocketServer(QString targetDir);
     ~WebSocketServer() override;
 
 signals:
@@ -30,6 +30,7 @@ private slots:
     void SocketDisconnected();
 
 private:
+    QString targetDir;
     QWebSocketServer *Web_socket_server;
     QList<QWebSocket *> clients;
     QWebSocket *aSocket;
