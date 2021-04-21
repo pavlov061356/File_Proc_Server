@@ -40,6 +40,7 @@ private:
     QString funHash; // хэш получаемый из хэш функции
     bool disconnect = false;
     int i = 0;
+    int j = 1;
 };
 
 #endif // WEBSOCKETSERVER_H

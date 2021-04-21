@@ -94,6 +94,10 @@ void WebSocketServer::RecieveFile(const QByteArray& message){
     else {
         clients.at(clients.size() - 1)->sendTextMessage("Transmission failed!");
         i = 0;
+        j++;
+        if (j > 5){
+            disconnect = true;
+        }
     }
 }
 
