@@ -27,6 +27,11 @@ FAIL_REGULAR_EXPRESSION "Aborting transmission!")
 set_tests_properties(Incorrect_Input PROPERTIES
 PASS_REGULAR_EXPRESSION "Aborting transmission!")
 
+if(BUILD_TESTING)
+    add_test(Correct_Input Test 1)
+    add_test(Incorrect_Input Test 2)
+endif()
+
 set(QT_VERSION 5)
 set(REQUIRED_LIBS Core WebSockets)
 set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::WebSockets)
