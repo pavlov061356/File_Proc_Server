@@ -1,6 +1,7 @@
 #include "websocketserver.h"
 #include <QDebug>
 #include <QFile>
+#include <QHash>
 
 static QString getIdentifier(QWebSocket *peer)
 {
@@ -8,24 +9,29 @@ static QString getIdentifier(QWebSocket *peer)
                                        QString::number(peer->peerPort()));
 }
 
-WebSocketServer::WebSocketServer(QString targetdir):
+WebSocketServer::WebSocketServer(QString targetdir, QString hostAdress, QString port):
     Web_socket_server(new QWebSocketServer(QStringLiteral("WebSocketServer"), QWebSocketServer::NonSecureMode))
 {
     targetDir = targetdir;
+    //qDebug() << hostAdress << port.toInt();
+    //qDebug()<<"Initialising listen";
+    //StartServer(hostAdress, port);
 
-    qDebug()<<"Initialising listen";
-    if(Web_socket_server->listen(QHostAddress("0.0.0.0"),40901)){
-        QObject::connect(Web_socket_server, SIGNAL(newConnection()), this, SLOT(NewConnection()));
-         qDebug() << "Server started";
-    }
-    else{
-        qDebug() << "Failedto listen port";
-        //throw std::runtime_error("WebSocketServer: failed to listen port");
-    }
 }
  WebSocketServer::~WebSocketServer(){
     Web_socket_server ->close();
 }
+ void WebSocketServer::StartServer(QString hostAdress, QString port){
+     if(Web_socket_server->listen(QHostAddress(hostAdress), port.toInt())){
+         QObject::connect(Web_socket_server, SIGNAL(newConnection()), this, SLOT(NewConnection()));
+          qDebug() << "Server started";
+     }
+     else{
+         qDebug() << "Failedto listen port";
+         //throw std::runtime_error("WebSocketServer: failed to listen port");
+     }
+
+ }
 
 void WebSocketServer::NewConnection(){
     qInfo() << "WebSocketServer::NewConnection";
@@ -80,11 +86,13 @@ void WebSocketServer::RecieveFile(const QByteArray& message){
     QFile file(filename);
     file.open(QFile::WriteOnly);
     file.write(message);
+    funHash = qHash(message) ^ message.size();
+    //qDebug() << "funHash:" + QString(funHash);
     file.close();
     //тут должна вызываться хэш функция, и Должен получаться хэш полученного файла, после чего идёт проверка на идентичность хэшей
     // пока примем хэш за "hash"
-    funHash = "hash";
-    if (funHash == hash){
+    //funHash = "hash";
+    if (QString(funHash) == hash){
         clients.at(clients.size() - 1)->sendTextMessage("Transmission OK!");
         //qDebug() << j;
         qDebug() << "Transmission OK!";
@@ -105,7 +113,14 @@ void WebSocketServer::SocketDisconnected()
 {
     qInfo() << "WebSocketServer::SocketDisconnected";
     if (disconnect == true){
+        Web_socket_server->close();
+        //qDebug() << Web_socket_server->isListening();
+
         QCoreApplication::exit(0);
     }
 
+}
+
+bool WebSocketServer::IsListening(){
+    return Web_socket_server->isListening();
 }

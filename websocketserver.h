@@ -17,8 +17,10 @@ class WebSocketServer: public QObject{
     Q_OBJECT
 
 public:
-    explicit WebSocketServer(QString targetDir);
+    explicit WebSocketServer(QString targetDir, QString hostAdress, QString port);
     ~WebSocketServer() override;
+    bool IsListening();
+    void StartServer(QString hostAdress, QString port);
 
 signals:
     void closed();
@@ -37,7 +39,7 @@ private:
     QString token;
     QString filename;
     QString hash;
-    QString funHash; // хэш получаемый из хэш функции
+    uint funHash; // хэш получаемый из хэш функции
     bool disconnect = false;
     int i = 0;
     int j = 1;

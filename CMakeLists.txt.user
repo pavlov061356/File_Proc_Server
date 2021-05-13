@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.14.0, 2021-04-20T21:31:47. -->
+<!-- Written by QtCreator 4.14.0, 2021-05-02T14:44:02. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -338,7 +338,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">File_Proc_Server</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.File_Proc_Server</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">File_Proc_Server</value>
-    <value type="QString" key="RunConfiguration.Arguments">~/upStorage/</value>
+    <value type="QString" key="RunConfiguration.Arguments">~/upStorage/ 0.0.0.0 40901</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>

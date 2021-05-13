@@ -13,6 +13,8 @@ set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::WebSockets)
 
 add_executable(${PROJECT_NAME} main.cpp websocketserver.cpp websocketserver.h)
 
+#add_library (${PROJECT_NAME} STATIC websocketserver.h websocketserver.cpp)
+
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
             "(-DCMAKE_PREFIX_PATH=\"path/to/Qt/lib/cmake\" or -DCMAKE_PREFIX_PATH=/usr/include/{host}/qt{version}/ on Ubuntu)")
