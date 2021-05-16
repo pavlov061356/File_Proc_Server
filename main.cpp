@@ -10,6 +10,8 @@
 #include <iostream>
 #include <string>
 #include "websocketserver.h"
+//#include "libFile_Proc_Server.so"
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -20,6 +22,7 @@ int main(int argc, char *argv[])
     QString host = argv[2];
     QString port = argv[3];
     WebSocketServer server(targetDir, host , port);
+    server.StartServer(host, port);
     return a.exec();
 
 }
